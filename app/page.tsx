@@ -9,6 +9,8 @@ export default function Home() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [aiResponse, setAiResponse] = useState<string>("");
+
 
 
   const startCamera = async () => {
@@ -28,7 +30,8 @@ export default function Home() {
       alert("Camera access denied or not available.");
     }
   };
-  const captureImage = () => {
+
+const captureImage = async () => {
   if (videoRef.current && canvasRef.current) {
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -42,9 +45,32 @@ export default function Home() {
     const imageData = canvas.toDataURL("image/png");
     setCapturedImage(imageData);
 
-    console.log("Image captured!");
+    setAiResponse("Analyzing image...");
+
+    try {
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: imageData }),
+      });
+
+      if (!response.ok) {
+        throw new Error("API failed");
+      }
+
+      const data = await response.json();
+      setAiResponse(data.result);
+
+    } catch (error) {
+      console.error(error);
+      setAiResponse("AI analysis failed.");
+    }
   }
 };
+
+  
 
 
   return (
@@ -90,6 +116,14 @@ export default function Home() {
     )}
   </>
 )}
+
+{aiResponse && (
+  <div className="mt-6 bg-gray-900 p-4 rounded-xl border border-green-500 w-1/2 text-center">
+    <p className="text-green-400 font-semibold">AI Response:</p>
+    <p className="mt-2 text-white">{aiResponse}</p>
+  </div>
+)}
+
 
     </main>
   );

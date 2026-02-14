@@ -1,16 +1,17 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-
 export async function POST(req: Request) {
   try {
-    const { image } = await req.json();
 
-    // Remove base64 header
+    const { image } = await req.json();
+    
+
     const base64Data = image.split(",")[1];
 
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
     });
 
     const result = await model.generateContent([
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
         },
       },
       {
-        text: "You are an electronics tutor. Identify components in the image and explain possible wiring mistakes clearly for beginners.",
+        text: "Explain what you see in this image.",
       },
     ]);
 
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ result: text }), {
       headers: { "Content-Type": "application/json" },
     });
+
   } catch (error) {
     console.error(error);
     return new Response(
