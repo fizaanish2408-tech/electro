@@ -22,8 +22,24 @@ export async function POST(req: Request) {
         },
       },
       {
-        text: "Explain what you see in this image.",
-      },
+  text: `
+You are an electronics tutor for beginners.
+
+Analyze the image and respond ONLY in this table format:
+
+Component | Purpose | Problem (if any) | Fix
+--- | --- | --- | ---
+Example | What it does | What is wrong | How to fix
+
+Rules:
+- Keep sentences very short.
+- Use simple words.
+- Do NOT use markdown symbols like **.
+- Do NOT write paragraphs.
+- Only output the table.
+`,
+}
+
     ]);
 
     const response = await result.response;
