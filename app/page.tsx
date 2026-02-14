@@ -7,6 +7,10 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isCameraOn, setIsCameraOn] = useState(false);
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+
+
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -24,6 +28,24 @@ export default function Home() {
       alert("Camera access denied or not available.");
     }
   };
+  const captureImage = () => {
+  if (videoRef.current && canvasRef.current) {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    context?.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imageData = canvas.toDataURL("image/png");
+    setCapturedImage(imageData);
+
+    console.log("Image captured!");
+  }
+};
+
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
@@ -48,6 +70,27 @@ export default function Home() {
           isCameraOn ? "block" : "hidden"
         }`}
       />
+      {isCameraOn && (
+  <>
+    <button
+      onClick={captureImage}
+      className="mt-4 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600"
+    >
+      Capture Image
+    </button>
+
+    <canvas ref={canvasRef} className="hidden" />
+
+    {capturedImage && (
+      <img
+        src={capturedImage}
+        alt="Captured"
+        className="mt-6 rounded-xl w-1/3 border-4 border-green-500"
+      />
+    )}
+  </>
+)}
+
     </main>
   );
 }
