@@ -80,7 +80,30 @@ const captureImage = async () => {
   }
 };
 
-  
+ 
+const handleCircuitClick = async (circuitName: string) => {
+  setAiResponse("Analyzing circuit...");
+
+  try {
+    const response = await fetch("/api/ledcircuit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ circuitName: "LED Basic Circuit" }),
+    });
+
+    const data = await response.json();
+    setAiResponse(data.result);
+
+  } catch (error) {
+    console.error(error);
+    setAiResponse("Circuit analysis failed.");
+  }
+};
+
+
+
 
 
   return (
@@ -108,6 +131,7 @@ const captureImage = async () => {
       />
       {isCameraOn && (
   <>
+
     <button
       onClick={captureImage}
       className="mt-4 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600"
@@ -115,6 +139,13 @@ const captureImage = async () => {
       Capture Image
     </button>
 
+    <button
+      onClick={() => handleCircuitClick("LED Basic Circuit")}
+      className="bg-blue-600 px-5 py-2 rounded-lg hover:bg-blue-700"
+>
+      LED Basic Circuit
+    </button>
+    
     <canvas ref={canvasRef} className="hidden" />
 
     {capturedImage && (
