@@ -63,6 +63,16 @@ const captureImage = async () => {
       const data = await response.json();
       setAiResponse(data.result);
 
+      // Speak AI response
+      const speech = new SpeechSynthesisUtterance(data.result);
+      speech.rate = 1;      // Speed (1 = normal)
+      speech.pitch = 1;     // Voice pitch
+      speech.lang = "en-US"; // Language
+
+      window.speechSynthesis.cancel(); // Stop previous speech
+      window.speechSynthesis.speak(speech);
+
+
     } catch (error) {
       console.error(error);
       setAiResponse("AI analysis failed.");
@@ -76,7 +86,7 @@ const captureImage = async () => {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
       <h1 className="text-4xl font-bold mb-6">
-        Electro-AI Hardware Assistant ⚡
+        ELECTRO-AI Hardware Assistant ⚡
       </h1>
 
       {!isCameraOn && (
