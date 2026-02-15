@@ -90,11 +90,20 @@ const handleCircuitClick = async (circuitName: string) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ circuitName: "LED Basic Circuit" }),
+      body: JSON.stringify({ circuitName: "LED Basic Circuit"}),
     });
 
     const data = await response.json();
     setAiResponse(data.result);
+     // Speak AI response
+    const speech = new SpeechSynthesisUtterance(data.result);
+    speech.rate = 1;      // Speed (1 = normal)
+    speech.pitch = 1;     // Voice pitch
+    speech.lang = "en-US"; // Language
+
+    window.speechSynthesis.cancel(); // Stop previous speech
+    window.speechSynthesis.speak(speech);
+  
 
   } catch (error) {
     console.error(error);
@@ -131,7 +140,7 @@ const handleCircuitClick = async (circuitName: string) => {
       />
       {isCameraOn && (
   <>
-
+    
     <button
       onClick={captureImage}
       className="mt-4 bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600"
