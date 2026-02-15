@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Electro AI Assistant
+## Basic Details
 
-## Getting Started
+Team Members
 
-First, run the development server:
+Member 1: Fiza Anish – Saintgits College of Engineering
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Hosted Project Link : https://electro-jkqy.onrender.com/
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[Add your hosted project demo link here — e.g., GitHub Pages, Vercel, Heroku]
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Description
 
-## Learn More
+Electro AI Assistant is a real-time AI-powered video assistant designed for beginner electronics students. It analyzes hardware circuits through a live camera feed and provides instant voice-based explanations and corrections.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## The Problem statement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Beginner electronics students struggle to understand circuit connections and often waste time describing their setup to AI tools. They need instant visual assistance while building hardware projects.
 
-## Deploy on Vercel
+## The Solution
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Electro AI Assistant watches the user's circuit through a camera and provides real-time, voice-based explanations and wiring corrections, eliminating the need for manual descriptions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technical Details
+Technologies/Components Used
+
+For Software:
+
+Languages used: JavaScript, Python
+
+Frameworks used: React, Node.js,Next js 
+
+Libraries used: TensorFlow,Gemini API
+
+Tools used: VS Code, Git,GitHub Act
+
+For AI/ML:
+
+vision model- Gemini
+speech- Web Speech API/TTS
+Backent API integration
+
+Deployment Tools: Render
+
+## Features
+
+Circuit analysis through camera
+
+AI-powered conversational responses
+
+Fast AI response
+
+Integrations with external tools and APIs
+
+Detects electronic components
+
+## Implementation
+
+# Installation
+    # Clone the repo
+    git clone https://github.com/fizaanish2408-tech/electro
+
+# Install backend dependencies
+cd backend
+pip install -r requirements.txt
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+
+Run
+# Start backend server
+cd backend
+uvicorn main:app --reload
+
+# Start frontend
+cd ../frontend
+npm start
+
+## Project Documentation
+
+# Screenshots 
+https://drive.google.com/drive/folders/14ObIovhbeX_xpVEObEB5DcoupKVHGcrU?usp=drive_link
+
+
+
+Base URL: https://api.electroai.com
+
+Endpoints
+
+GET /api/analyze
+
+Description:AI analyzing
+
+Response: (AI respond accoring to thw frame sent through camera)
+
+
+# Project Demo
+https://drive.google.com/drive/folders/14ObIovhbeX_xpVEObEB5DcoupKVHGcrU?usp=drive_link
+
+
+This video demonstrates a live session of Electro AI Assistant performing tasks.
+
+
+AI tools used:
+Chat gpt
+
+License
+
+This project is licensed under the MIT License — see the LICENSE file for details.
